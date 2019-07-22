@@ -1,16 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 /* Import Components */
 import Nightmode from '../Nightmode';
 import PlaylistHeader from '../PlaylistHeader';
 import PlaylistItems from './PlaylistItems';
 
+/* Import Styled Components */
+import StyledPlaylist from '../../styles/StyledPlaylist';
+
 const Playlist = () => (
-  <Fragment>
+  <StyledPlaylist>
   	<Nightmode />
   	<PlaylistHeader />
   	<PlaylistItems />
-  </Fragment>
+  </StyledPlaylist>
 )
 
 export default Playlist;

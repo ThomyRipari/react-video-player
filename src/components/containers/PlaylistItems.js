@@ -1,12 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 /* Import Components */
 import PlaylistItem from '../PlaylistItem';
 
+/* Import Styled Components */
+import StyledPlaylistItems from '../../styles/StyledPlaylistItems';
+
 const PlaylistItems = () => (
-  <Fragment>
+  <StyledPlaylistItems>
   	<PlaylistItem />
-  </Fragment>
+  </StyledPlaylistItems>
 )
 
 export default PlaylistItems;
