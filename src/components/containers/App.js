@@ -1,7 +1,8 @@
 import React from 'react';
+import WebPlayer from './WebPlayer';
 
 const App = () => (
-  <div><h1>HELLO</h1></div>
+  <WebPlayer />
 )
 
 export default App;
