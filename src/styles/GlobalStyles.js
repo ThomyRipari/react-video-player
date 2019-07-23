@@ -6,8 +6,8 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
-		font-size: 18px;
-		font-family: 'Roboto', sans-serif;
+		font-size: 10px;
+		font-family: 'Hind', sans-serif;
 	}
 
 `;

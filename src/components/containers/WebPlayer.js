@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 /* Import Components */
@@ -8,6 +8,9 @@ import Video from '../Video';
 /* Import Styled Components */
 import StyledWebPlayer from '../../styles/StyledWebPlayer';
 
+/* Import Videos */
+import videos from '../../utils/videos';
+
 const themeNight = {
   bgcolor: '#353535',
   bgcolorItem: '#414141',
@@ -15,7 +18,7 @@ const themeNight = {
   bgcolorPlayed: '#526d4e',
   border: 'none',
   borderPlayed: 'none',
-  color: '#fff',
+  color: '#fff'
 };
 
 const themeLight = {
@@ -25,16 +28,48 @@ const themeLight = {
   bgcolorPlayed: '#7d9979',
   border: '1px solid #353535',
   borderPlayed: 'none',
-  color: '#353535',
+  color: '#353535'
 };
 
 const WebPlayer = () => {
+
+	const [state, setState] = useState({
+		videos: videos,
+		activeVideo: videos[0],
+		nightMode: true,
+		autoplay: false
+	})
+
+	const endCallback = () => {
+
+	}
+
+	const progressCallback = () => {
+
+	}
+
+	const nightModeCallback = () => {
+	}
+
 	return (
 		<ThemeProvider theme={state.nightMode ? themeNight : themeLight}>
-			<StyledWebPlayer>
-				<Video />
-				<Playlist />
-			</StyledWebPlayer>
+			{state.videos !== null ? (
+				<StyledWebPlayer>
+					<Video 
+						active={state.activeVideo}
+						autoplay={state.autoplay} 
+						endCallback={endCallback} 
+						progressCallback={progressCallback} 
+					/>
+					<Playlist
+						videos={state.videos}
+						active={state.activeVideo}
+						nightModeCallback={nightModeCallback}
+						nightMode={state.nightMode}
+					/>
+				</StyledWebPlayer>
+
+			) : null}
 		</ThemeProvider>
 	)
 }

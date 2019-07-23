@@ -5,19 +5,18 @@ import ReactPlayer from 'react-player';
 import StyledVideo from '../styles/StyledVideo';
 import StyledVideoWrapper from '../styles/StyledVideoWrapper';
 
-const Video = ({active, autoplay, endCallback, progessCallback}) => (
+const Video = ({active, autoplay, endCallback, progressCallback}) => (
 	<StyledVideo>
 		<StyledVideoWrapper>
 			<ReactPlayer
 				width="100%"
 				height="100%"
 				style={{position: "absolute", top: "0"}}
-				playing={autoplay}
 				controls={true}
+				playing={autoplay}
 				url={active.video}
 				onEnded={endCallback}
-				onProgress={progessCallback}
-
+				onProgress={progressCallback}
 			 />
 		</StyledVideoWrapper>
 	</StyledVideo>
