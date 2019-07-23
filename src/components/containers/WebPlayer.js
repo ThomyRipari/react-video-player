@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 /* Import Components */
@@ -31,14 +31,38 @@ const themeLight = {
   color: '#353535'
 };
 
-const WebPlayer = () => {
+const WebPlayer = ({match, location, history}) => {
 
 	const [state, setState] = useState({
 		videos: videos,
 		activeVideo: videos[0],
-		nightMode: true,
+		nightMode: false,
 		autoplay: false
 	})
+
+	useEffect(() => {
+		const activeVideoId = match.params.activeVideo;
+
+		if (activeVideoId !== undefined) {
+			const newActiveVideo = state.videos.findIndex(video => video.id === activeVideoId)
+
+			setState(prev => ({
+				...prev,
+				activeVideo: prev.videos[newActiveVideo],
+				autoplay: location.autoplay
+			}))
+
+			console.log('SECOND');
+
+		} else {
+			console.log('FIRST');
+			history.push({
+				pathname: `/${state.activeVideo.id}`,
+				autoplay: false
+			})
+		}
+
+	}, [history, location.autoplay, match.params.activeVideo, state.activeVideo.id, state.videos])
 
 	const endCallback = () => {
 
