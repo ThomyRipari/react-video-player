@@ -16,6 +16,7 @@ const PlaylistItems = ({videos, active}) => (
   			key={video.id}
   			video={video}
   			active={video.id === active.id ? true : false}
+  			played={video.played}
   		/>
   	))}
   </StyledPlaylistItems>

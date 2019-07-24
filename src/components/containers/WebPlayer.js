@@ -52,27 +52,41 @@ const WebPlayer = ({match, location, history}) => {
 				autoplay: location.autoplay
 			}))
 
-			console.log('SECOND');
-
 		} else {
-			console.log('FIRST');
 			history.push({
 				pathname: `/${state.activeVideo.id}`,
 				autoplay: false
 			})
 		}
 
-	}, [history, location.autoplay, match.params.activeVideo, state.activeVideo.id, state.videos])
+	}, [match.params.activeVideo])
 
 	const endCallback = () => {
+		let activeVideoId = match.params.activeVideo;
+		let activeVideoIndex = state.videos.findIndex(video => video.id === activeVideoId)
 
+
+		let nextVideoIndex = activeVideoIndex === state.videos.length - 1 ? 0 : activeVideoIndex + 1;
+
+		history.push({
+			pathname: `/${state.videos[nextVideoIndex].id}`,
+			autoplay: false
+		})
 	}
 
-	const progressCallback = () => {
-
+	const progressCallback = e => {
+		if (e.playedSeconds > 10 && e.playedSeconds < 11) {
+			setState({
+				...state,
+				videos: state.videos.map(video => {
+					return video.id === state.activeVideo.id ? {...video, played: true} : video;
+				})
+			})
+		}
 	}
 
 	const nightModeCallback = () => {
+		setState({...state, nightMode: !state.nightMode});
 	}
 
 	return (
