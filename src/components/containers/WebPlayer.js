@@ -33,12 +33,23 @@ const themeLight = {
 
 const WebPlayer = ({match, location, history}) => {
 
+	const savedState = JSON.parse(localStorage.getItem('playlist_state'));
+
 	const [state, setState] = useState({
-		videos: videos,
-		activeVideo: videos[0],
-		nightMode: false,
+		videos: savedState ? savedState.videos : videos,
+		activeVideo: savedState ? savedState.activeVideo : videos[0],
+		nightMode: savedState ? savedState.nightMode : false,
 		autoplay: false
 	})
+
+
+	useEffect(
+		() => {
+			localStorage.setItem('playlist_state', JSON.stringify(state))
+		},
+
+		[state]
+	)
 
 	useEffect(() => {
 		const activeVideoId = match.params.activeVideo;
@@ -76,17 +87,17 @@ const WebPlayer = ({match, location, history}) => {
 
 	const progressCallback = e => {
 		if (e.playedSeconds > 10 && e.playedSeconds < 11) {
-			setState({
-				...state,
-				videos: state.videos.map(video => {
-					return video.id === state.activeVideo.id ? {...video, played: true} : video;
+			setState(prev => ({
+				...prev,
+				videos: prev.videos.map(video => {
+					return video.id === prev.activeVideo.id ? {...video, played: true} : video;
 				})
-			})
+			}))
 		}
 	}
 
 	const nightModeCallback = () => {
-		setState({...state, nightMode: !state.nightMode});
+		setState(prev => ({...prev, nightMode: !prev.nightMode}));
 	}
 
 	return (
